@@ -1,0 +1,8 @@
+version: 0.1
+name: infty-5
+mode: basic
+
+B0 L0 F1 B2
+F2 F3 F0 L0
+L0 F2 F0 F0
+B1 F2 L0 B0

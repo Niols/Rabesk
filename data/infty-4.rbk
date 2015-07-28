@@ -1,0 +1,7 @@
+version: 0.1
+name: infty-4
+mode: basic
+
+P0 E0 P3
+L1 E0 L1
+P0 E0 P3

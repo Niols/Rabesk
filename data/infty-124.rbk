@@ -1,16 +1,12 @@
 version: 0.1
-name: infty-160
+name: infty-124
 mode: basic
 
-P B B B E
-P L F C P
-B F P F P
-P B F C B
-F B L L L
-L B F C B
-B B P B P
-B C B P P
-F F P L L
-L L B F B
-B B E E E
-E E P L P
+B2 F0 L0 P1
+L1 B1 L1 B2
+F2 L0 F0 F3
+P2 P2 B1 B1
+B0 F2 B2 E0
+L1 P2 F1 B2
+F2 F3 P0 L1
+P2 P0 P1 B1

@@ -1,0 +1,11 @@
+version: 0.1
+name: infty-24
+mode: basic
+
+P3 E0 B2 P1
+L1 B0 C0 B0
+F3 F0 F2 F3
+B1 C0 B0 L0
+B0 C0 F2 B2
+B0 F2 F3 P1
+P1 L1 P0 E0

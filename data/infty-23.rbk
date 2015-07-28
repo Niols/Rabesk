@@ -1,0 +1,9 @@
+version: 0.1
+name: infty-23
+mode: basic
+
+B2 B3 P1 B1 B3
+F1 C0 C0 C0 F1
+F1 C0 C0 C0 F3
+F0 C0 C0 C0 F3
+B3 B2 P0 B0 B2

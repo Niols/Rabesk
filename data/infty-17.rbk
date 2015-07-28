@@ -1,0 +1,9 @@
+version: 0.1
+name: infty-17
+mode: basic
+
+P0 B0 L1 B1
+L0 L1 E0 L0
+B0 F2 F2 F3
+B2 B2 B1 B1
+P0 B2 L1 P1

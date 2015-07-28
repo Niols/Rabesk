@@ -1,8 +1,6 @@
 version: 0.1
 name: infty-160
 mode: basic
-width: 5
-height: 12
 
 P2 B1 B1 B0 E0
 P2 L0 F0 C0 P3
