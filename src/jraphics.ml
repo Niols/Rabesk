@@ -11,11 +11,19 @@ let i2y i = (Graphics.size_y ()) - i - 1
 let j2x j = j
 let x2j = j2x
 let y2i = i2y
-	
+
+let di2dy di = -di
+let dj2dx dj = dj
+let dx2dj = dj2dx
+let dy2di = di2dy
+
 let ij2xy (i, j) = (j2x j, i2y i)
-let xy2ij = ij2xy
+let xy2ij (x, y) = (y2i y, x2j x)
 let ijij2xyxy (i, j, i', j') = (j2x j, i2y i, j2x j', i2y i')
 
+let dij2dxy (di, dj) = (dj2dx dj, di2dy di)
+let dxy2dij (dx, dy) = (dy2di dy, dx2dj dx)
+				 
 exception Jraphics_failure of string
 
 let open_graph               = Graphics.open_graph
@@ -182,12 +190,12 @@ let plot i j                 = Graphics.plot (j2x j) (i2y i)
 let plots pt_arr             = Graphics.plots (Array.map ij2xy pt_arr)
 let point_color i j          = Graphics.point_color (j2x j) (i2y i)
 let moveto i j               = Graphics.moveto (j2x j) (i2y i)
-let rmoveto i j              = Graphics.rmoveto (j2x j) (i2y i)
+let rmoveto di dj            = Graphics.rmoveto dj (-di)
 let current_i ()             = y2i (Graphics.current_y ())
 let current_j ()             = x2j (Graphics.current_x ())
 let current_point ()         = xy2ij (Graphics.current_point ())
 let lineto i j               = Graphics.lineto (j2x j) (i2y i)
-let rlineto i j              = Graphics.rlineto (j2x j) (i2y i)
+let rlineto di dj            = Graphics.rlineto dj (-di)
 let curveto b c d            = Graphics.curveto (ij2xy b) (ij2xy c) (ij2xy d)
 let draw_rect i j w h        = Graphics.draw_rect (j2x j) ((i2y i) - h - 1) w h (* top left corner *)
 let draw_poly_line pt_arr    = Graphics.draw_poly_line (Array.map ij2xy pt_arr)
@@ -198,11 +206,16 @@ let draw_ellipse i j ri rj   = Graphics.draw_ellipse (j2x j) (i2y i) rj ri
 let draw_circle i j r        = Graphics.draw_circle (j2x j) (i2y i) r
 let set_line_width           = Graphics.set_line_width
 
-let draw_char                = Graphics.draw_char
-let draw_string              = Graphics.draw_string
 let set_font                 = Graphics.set_font
 let set_text_size            = Graphics.set_text_size
-let text_size s              = xy2ij (Graphics.text_size s)
+let text_size                = Graphics.text_size
+let draw_string s =
+  let _, h = text_size s in
+  rmoveto h 0;
+  Graphics.draw_string s;
+  rmoveto (-h) 0
+let draw_char c =
+  draw_string (String.make 1 c)
 
 let fill_rect i j w h        = Graphics.fill_rect (j2x j) ((i2y i) - h - 1) w h (* top left corner *)
 let fill_poly pt_arr         = Graphics.fill_poly (Array.map ij2xy pt_arr)
