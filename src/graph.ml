@@ -1,0 +1,2 @@
+type ('v, 'i) graph = …
+

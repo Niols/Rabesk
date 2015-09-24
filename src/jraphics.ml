@@ -6,6 +6,8 @@
    - images are usable directly as color array array
  *)
 
+(*TODO: add get_color*)
+
 (* should not appear in the signature *)
 let i2y i = (Graphics.size_y ()) - i - 1
 let j2x j = j
@@ -309,3 +311,4 @@ let auto_synchronize = Graphics.auto_synchronize
 let synchronize = Graphics.synchronize
 let display_mode = Graphics.display_mode
 let remember_mode = Graphics.remember_mode
+

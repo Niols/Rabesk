@@ -1,8 +1,25 @@
-type t = Bloc.t array array
+(*
+ * What we call a `grid` is infact a graph of blocs. The vertices are the blocs
+ * and the edges are the relations between the blocs and the other reachable
+ * blocs, indexed by a way to `choose` a neighbor.
+ *)
+
+type colors =
+    { foreground : Jraphics.color
+    ; background : Jraphics.color
+    ; focus      : Jraphics.color
+    ; water      : Jraphics.color }
+
+type t =
+    { mutable focus     : int * int
+    ;         matrix    : Bloc.t array array
+    ; mutable bloc_size : int
+    ; mutable top_left  : int * int
+    ; mutable colors    : colors }
 
 exception Parse_error of string
 
-let of_string str =
+let matrix_of_string str =
   let grid = ref [] in
   let line = ref [] in
   let c1 = ref 'E' in
@@ -30,16 +47,26 @@ let of_string str =
     | '\n' -> flush_chars (); flush_line ()
     | c -> c2 := c
   done;
-  Array.of_list (List.rev_map (fun l -> Array.of_list (List.rev l)) !grid)
+  { focus = 0, 0
+  ; matrix = Array.of_list (List.rev_map (fun l -> Array.of_list (List.rev l)) !grid) }
+
+let make str =
+  { focus     = 0, 0
+  ; matrix    = matrix_of_string str
+  ; top_left  = 0, 0
+  ; bloc_size = 40
+  ; { foreground = Jraphics.black
+    ; background = Jraphics.white
+    ; focus      = Jraphics.lightgray
+    ; water      = Jraphics.blue } }
+
+let get_colors grid = grid.colors
+let set_colors grid colors = grid.colors <- colors
     
-			      
-let to_image
-      ?block_size:(n=40)
-      ?color:(color=Jraphics.black)
-      grid =
+let to_image grid =
   let height = Array.length grid in
   let width  = Array.length grid.(0) in
-  let image = Array.make_matrix (n * height) (n * width) Jraphics.transp in
+  let image = Array.make_matrix (n * height) (n * width) grid.colors.background in
   for i = 0 to height - 1 do
     for j = 0 to width - 1 do
       let bloc_image =

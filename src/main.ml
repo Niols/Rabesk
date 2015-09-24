@@ -1,9 +1,9 @@
 let show_menu () =
   assert false
 	 
-let prog_open n =
+let prog_open name =
   Jraphics.open_graph "";
-  Jraphics.set_window_title n;
+  Jraphics.set_window_title name;
   Jraphics.resize_window 600 800
 
 let prog_close i=
@@ -54,19 +54,19 @@ E0 E0 P0 L1 P0
     Grid.draw ~block_size:(block_size) grid i0 j0;
     
     let status = Jraphics.wait_next_event [Jraphics.Button_down; Jraphics.Key_pressed] in
-    if status.keypressed then
+    if status.Jraphics.keypressed then
       (
-	if status.key = 'q' then
+	if status.Jraphics.key = 'q' then
 	  prog_close 0
-	else if status.key = 'j' && !curr_j > 0 then
+	else if status.Jraphics.key = 'j' && !curr_j > 0 then
 	  move_curr (-1) ((!curr_j) - 1)
-	else if status.key = 'k' && !curr_i > 0 then
+	else if status.Jraphics.key = 'k' && !curr_i > 0 then
 	  move_curr ((!curr_i) - 1) (-1)
-	else if status.key = 'l' && !curr_i < (Array.length grid) - 1 then
+	else if status.Jraphics.key = 'l' && !curr_i < (Array.length grid) - 1 then
 	  move_curr ((!curr_i) + 1) (-1)
-	else if status.key = 'm' && !curr_j < (Array.length grid.(0)) - 1 then
+	else if status.Jraphics.key = 'm' && !curr_j < (Array.length grid.(0)) - 1 then
 	  move_curr (-1) ((!curr_j) + 1)
-	else if status.key = ' ' then
+	else if status.Jraphics.key = ' ' then
 	  (
 	    move_curr (-1) (-1);
 	    Bloc.turn_cw (grid.(!curr_i).(!curr_j))
@@ -74,8 +74,8 @@ E0 E0 P0 L1 P0
       )
     else
       (
-	let m_i = status.mouse_i in
-	let m_j = status.mouse_j in
+	let m_i = status.Jraphics.mouse_i in
+	let m_j = status.Jraphics.mouse_j in
 	let i = (m_i - 10) / 40 in
 	let j = (m_j - 10) / 40 in
 	(*Format.printf "Mouse pressed: %d * %d (%d * %d)@." m_i m_j i j;*)
